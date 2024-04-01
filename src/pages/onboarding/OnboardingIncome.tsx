@@ -46,8 +46,7 @@ export default function OnboardingIncome(props: OnboardingIncomeProps) {
         <p>Don't worry, we won't share this information with anyone.</p>
 
         <p>Enter your annual income:</p>
-        {/* //@ts-ignore */}
-        <IonInput type="number" placeholder="Annual income" value={income} onIonChange={(e) => setIncome(parseInt(e.detail.value))} />
+        <IonInput type="number" placeholder="Annual income" value={income} onIonChange={(e) => setIncome(parseInt(e.detail.value || ''))} />
         <IonButton onClick={handleSave}>Next</IonButton>
       </IonCardContent>
     </IonCard>

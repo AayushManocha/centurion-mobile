@@ -93,10 +93,10 @@ export default function OnboardingTransactionCategories(props: OnboardingTransac
         </IonCardHeader>
         <IonCardContent>
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '30%' }}>
-            <IonInput type="text" placeholder="Category" onIonInput={e => setCurrentCategory(e.detail.value)} value={currentCategory} />
-            <IonInput type="text" placeholder="Budget" onIonInput={e => setCurrentBudget(e.detail.value)} value={currentBudget} />
+            <IonInput type="text" placeholder="Category" onIonInput={e => setCurrentCategory(e.detail.value || '')} value={currentCategory || ''} />
+            <IonInput type="text" placeholder="Budget" onIonInput={e => setCurrentBudget(e.detail.value || '')} value={currentBudget || ''} />
             <IonCheckbox labelPlacement="end" value={currentIsTrackedWeekly} onIonChange={e => setCurrentIsTrackedWeekly(e.detail.checked)}>Track Weekly?</IonCheckbox>
-            <IonButton onClick={() => addCategory(currentCategory)}>Add</IonButton>
+            <IonButton onClick={() => addCategory(currentCategory || '')}>Add</IonButton>
           </div>
           <ul data-testid="current-categories">
             {categories.map(category => (

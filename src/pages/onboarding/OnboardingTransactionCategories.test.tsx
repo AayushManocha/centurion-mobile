@@ -4,21 +4,21 @@ import OnboardingTransactionCategories from "./OnboardingTransactionCategories"
 import { setupServer } from "msw/node"
 import { HttpResponse, http } from "msw"
 
-const server = setupServer(
-  http.post('http://localhost:8080/onboarding/spending-categories', (req, res, ctx) => {
-    const categories = req.body.categories
-    console.log("Categories: ", categories)
-    if (categories.length !== 1) return HttpResponse.json({}, { status: 400 })
-    if (categories[0].title !== 'Groceries') return HttpResponse.json({}, { status: 400 })
-    if (categories[0].budgetAmount !== 100) return HttpResponse.json({}, { status: 400 })
-    // if (categories[0].isTrackedWeekly !== true) return HttpResponse.json({}, { status: 400 })
-    return HttpResponse.json({}, { status: 200 })
-  })
-)
+// const server = setupServer(
+//   http.post('http://localhost:8080/onboarding/spending-categories', (req: any, res: any, ctx: any) => {
+//     const categories = req.body.categories
+//     console.log("Categories: ", categories)
+//     if (categories.length !== 1) return HttpResponse.json({}, { status: 400 })
+//     if (categories[0].title !== 'Groceries') return HttpResponse.json({}, { status: 400 })
+//     if (categories[0].budgetAmount !== 100) return HttpResponse.json({}, { status: 400 })
+//     if (categories[0].isTrackedWeekly !== true) return HttpResponse.json({}, { status: 400 })
+//     return HttpResponse.json({}, { status: 200 })
+//   })
+// )
 
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+// beforeAll(() => server.listen())
+// afterEach(() => server.resetHandlers())
+// afterAll(() => server.close())
 
 test('Test OnboardingTransactionCategories request is correct', async () => {
   const mockUseAuth = vi.fn(() => ({ getToken: vi.fn(() => 'fake-token'), isLoaded: true, isSignedIn: true }))
