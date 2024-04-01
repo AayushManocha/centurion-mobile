@@ -5,24 +5,24 @@ import { setupServer } from 'msw/node'
 import { HttpResponse, http } from 'msw'
 import { render, waitFor, screen } from "../../utils/test-utils"
 
-const server = setupServer(
-  http.get('http://localhost:8080/dashboard/monthly/:dateSlug', (req, res, ctx) => {
-    return HttpResponse.json({
-      categoryExpenses: [
-        {
-          categoryTitle: 'Groceries',
-          categoryId: 1,
-          totalExpense: 100,
-          remainingBudget: 200
-        }
-      ]
-    }, { status: 200 })
-  })
-)
+// const server = setupServer(
+//   http.get('http://localhost:8080/dashboard/monthly/:dateSlug', (req, res, ctx) => {
+//     return HttpResponse.json({
+//       categoryExpenses: [
+//         {
+//           categoryTitle: 'Groceries',
+//           categoryId: 1,
+//           totalExpense: 100,
+//           remainingBudget: 200
+//         }
+//       ]
+//     }, { status: 200 })
+//   })
+// )
 
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+// beforeAll(() => server.listen())
+// afterEach(() => server.resetHandlers())
+// afterAll(() => server.close())
 
 test('Content is rendered appropriately', async () => {
   const useAuth = vi.fn(() => ({ getToken: vi.fn(() => 'fake-token') }))

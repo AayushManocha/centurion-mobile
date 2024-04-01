@@ -13,7 +13,6 @@ const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 }
 
 const customRender = (ui: any, options?: any) => {
-  global.useAuth = vi.fn(() => ({ getToken: vi.fn(() => 'testtoken') }))
   render(ui, { wrapper: TestWrapper, ...options })
 }
 

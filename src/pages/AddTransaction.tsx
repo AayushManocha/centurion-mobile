@@ -7,7 +7,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 
 interface SpendingCategory {
-  id: number
+  ID: number
   title: string
 }
 
@@ -59,9 +59,6 @@ function AddTransaction() {
     setCategory(categoryId)
   }
 
-  console.log('categoskjfdsadkjfry:', category)
-
-
   return (
     <IonCard>
       <IonCardHeader>
@@ -71,7 +68,7 @@ function AddTransaction() {
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <IonSelect placeholder="Category" onIonChange={(e) => handleCategoryChange(e.detail.value)}>
             {availableCategories.map(category => (
-              <IonSelectOption value={category.id}>{category.title}</IonSelectOption>
+              <IonSelectOption value={category.ID}>{category.title}</IonSelectOption>
             ))}
           </IonSelect>
           <IonInput type="number" placeholder="Amount" value={amount} onIonChange={e => setAmount(parseFloat(e.detail.value))} />
