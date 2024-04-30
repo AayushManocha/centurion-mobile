@@ -27,7 +27,7 @@ export default function WeeklyDashboard() {
       const dateSlug = mondayOfThisWeek.toISOString().split('T')[0]
 
 
-      const response = await axios.get(`http://localhost:8080/dashboard/weekly/${dateSlug}`, { headers: { Authorization: `Bearer ${authToken}` } })
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/weekly/${dateSlug}`, { headers: { Authorization: `Bearer ${authToken}` } })
       return response.data
 
     },

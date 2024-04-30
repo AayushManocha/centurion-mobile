@@ -69,7 +69,7 @@ export default function OnboardingTransactionCategories(props: OnboardingTransac
     mutationKey: 'update-categories',
     mutationFn: async (categories: Categories[]) => {
       const authToken = await getToken()
-      await axios.post(`http://localhost:8080/onboarding/spending-categories`, { categories }, { headers: { Authorization: `Bearer ${authToken}` } })
+      await axios.post(`${import.meta.env.VITE_API_URL}/onboarding/spending-categories`, { categories }, { headers: { Authorization: `Bearer ${authToken}` } })
     },
     onSuccess: redirectToWeeklyDashboard,
     onError: () => openToast('Error saving categories')
@@ -80,12 +80,8 @@ export default function OnboardingTransactionCategories(props: OnboardingTransac
     mutation.mutate(categories)
   }
 
-  // console.log('currentCategory', currentCategory)
-  // console.log('currentBudget', currentBudget)
-  // console.log('currentIsTrackedWeekly', currentIsTrackedWeekly)
-
   return (
-    <AuthenticatedRoute useAuthHook={authHook}>
+    <AuthenticatedRoute>
       <IonCard>
         <IonCardHeader>
           <h1>Transaction Categories</h1>

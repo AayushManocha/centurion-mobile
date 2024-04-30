@@ -20,16 +20,19 @@ const Home: React.FC = () => {
     retry: false,
     queryFn: async () => {
       const token = await getToken()
-      const response = await axios.get('http://localhost:8080/onboarding/status', { headers: { Authorization: `Bearer ${token}` } })
-      console.log('response', response)
+      console.log('token is', token)
+      const response = await axios.get(`/onboarding/status`, { headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' } })
+      console.log('response is', response.data)
       if (!response.data.hasIncome) {
-        hisory.push('/onboarding-income')
+        console.log('redirecting to onboarding income')
+        hisory.push('/onboarding-categories')
       } else if (!response.data.hasSpendingCategory) {
+        console.log('redirecting to onboarding categories')
         hisory.push('/onboarding-categories')
       } else {
+        console.log('redirecting to dashboard')
         hisory.push('/dashboard')
       }
-      // Todo Redirect to dashboard if user has already completed onboarding
     }
   })
 

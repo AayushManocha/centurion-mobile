@@ -33,7 +33,7 @@ export default function MonthlyDashboard(props: MonthlyDashboardProps) {
       const currentMonth = new Date()
       const currentMonthWithLeadingZero = currentMonth.getMonth() + 1 < 10 ? `0${currentMonth.getMonth() + 1}` : currentMonth.getMonth() + 1
       const dateSlug = `${currentMonth.getFullYear()}-${currentMonthWithLeadingZero}-01`
-      const response = await axios.get(`http://localhost:8080/dashboard/monthly/${dateSlug}`, { headers: { Authorization: `Bearer ${authToken}` } })
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/monthly/${dateSlug}`, { headers: { Authorization: `Bearer ${authToken}` } })
       console.log('response', response.data)
       return response.data
     },
@@ -55,7 +55,7 @@ export default function MonthlyDashboard(props: MonthlyDashboardProps) {
           {isLoading ? <IonSpinner /> : null}
           {data && (
             <div>
-              {data.categoryExpenses.map((category: CategoryExpense) => (
+              {data?.categoryExpenses?.map((category: CategoryExpense) => (
                 <CategoryCard
                   totalBudget={category.totalBudget}
                   categoryId={category.categoryId}

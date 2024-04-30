@@ -4,14 +4,16 @@ import axios from "axios";
 import React from "react";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router";
+import AuthenticatedRoute from "../../components/UnauthenticatedRoute";
 
 interface OnboardingIncomeProps {
   useAuthHook?: any
 }
 
 export default function OnboardingIncome(props: OnboardingIncomeProps) {
+  console.log('ONBOARDING INCOME')
   const [income, setIncome] = React.useState<undefined | number>()
-  const { getToken } = props.useAuthHook ? props.useAuthHook() : useAuth()
+  const { getToken } = useAuth()
 
   const history = useHistory()
   const redirectToOnboardingCategories = () => {
@@ -22,7 +24,7 @@ export default function OnboardingIncome(props: OnboardingIncomeProps) {
     mutationKey: 'update-income',
     mutationFn: async (income: number) => {
       const authToken = await getToken()
-      await axios.post(`http://localhost:8080/onboarding/income`, { income }, { headers: { Authorization: `Bearer ${authToken}` } })
+      await axios.post(`${import.meta.env.VITE_API_URL}/onboarding/income`, { income }, { headers: { Authorization: `Bearer ${authToken}` } })
     },
     onSuccess: redirectToOnboardingCategories
   })
@@ -33,22 +35,24 @@ export default function OnboardingIncome(props: OnboardingIncomeProps) {
   }
 
   return (
-    <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>Income</IonCardTitle>
-        <IonCardSubtitle>How much do you make?</IonCardSubtitle>
-      </IonCardHeader>
+    <AuthenticatedRoute>
+      <IonCard>
+        <IonCardHeader>
+          <IonCardTitle>Income</IonCardTitle>
+          <IonCardSubtitle>How much do you make?</IonCardSubtitle>
+        </IonCardHeader>
 
-      <IonCardContent>
-        <p>Let's start by understanding your income.</p>
-        <p>How much do you make in a year?</p>
+        <IonCardContent>
+          <p>Let's start by understanding your income.</p>
+          <p>How much do you make in a year?</p>
 
-        <p>Don't worry, we won't share this information with anyone.</p>
+          <p>Don't worry, we won't share this information with anyone.</p>
 
-        <p>Enter your annual income:</p>
-        <IonInput type="number" placeholder="Annual income" value={income} onIonChange={(e) => setIncome(parseInt(e.detail.value || ''))} />
-        <IonButton onClick={handleSave}>Next</IonButton>
-      </IonCardContent>
-    </IonCard>
+          <p>Enter your annual income:</p>
+          <IonInput type="number" placeholder="Annual income" value={income} onIonChange={(e) => setIncome(parseInt(e.detail.value || ''))} />
+          <IonButton onClick={handleSave}>Next</IonButton>
+        </IonCardContent>
+      </IonCard>
+    </AuthenticatedRoute>
   )
 }

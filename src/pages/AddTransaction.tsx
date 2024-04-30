@@ -25,7 +25,7 @@ function AddTransaction() {
     queryKey: 'get-categories',
     queryFn: async () => {
       const authToken = await getToken()
-      const response = await axios.get('http://localhost:8080/categories', { headers: { Authorization: `Bearer ${authToken}` } })
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/categories`, { headers: { Authorization: `Bearer ${authToken}` } })
       setAvailableCategories(response.data.categories)
     }
   })
@@ -34,7 +34,7 @@ function AddTransaction() {
   const mutation = useMutation({
     mutationFn: async (transaction: { amount: number, date: string, description: string, category_id: number }) => {
       const authToken = await getToken()
-      await axios.post('http://localhost:8080/expense', transaction, { headers: { Authorization: `Bearer ${authToken}` } })
+      await axios.post(`${import.meta.env.VITE_API_URL}/expense`, transaction, { headers: { Authorization: `Bearer ${authToken}` } })
     },
     onSuccess: () => history.push('/dashboard')
   })
