@@ -62,7 +62,7 @@ const LoginPage: React.FC = () => {
                   </div>
                   <div>
                     <p>Already have an account?</p>
-                    <IonButton type="" onClick={() => setUserIsCreatingNewAccount(false)}>Sign In</IonButton>
+                    <IonButton onClick={() => setUserIsCreatingNewAccount(false)}>Sign In</IonButton>
                   </div>
                 </>
               ) : (
