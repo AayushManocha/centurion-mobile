@@ -13,4 +13,5 @@ RUN npm install
 
 # Inform Docker that the container is listening on the specified port at runtime.
 EXPOSE 5173
-CMD ["npm", "run", "dev"]
+# CMD ["npm", "run", "dev"]
+CMD ["vite --host --port $PORT"]
