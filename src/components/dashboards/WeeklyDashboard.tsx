@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/clerk-react";
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonFab, IonFabButton, IonIcon, IonInput, IonSpinner } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonFab, IonFabButton, IonFabList, IonIcon, IonInput, IonSpinner } from "@ionic/react";
 import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
@@ -36,9 +36,7 @@ export default function WeeklyDashboard() {
 
 
   const history = useHistory()
-  const navigateToAddTransaction = () => {
-    history.push('/add-transaction')
-  }
+
 
   return (
     <>
@@ -62,11 +60,7 @@ export default function WeeklyDashboard() {
           )}
         </IonCardContent>
       </IonCard >
-      <IonFab style={{ position: 'absolute', bottom: '24px', right: '24px' }}>
-        <IonFabButton onClick={navigateToAddTransaction}>
-          <IonIcon icon={add}></IonIcon>
-        </IonFabButton>
-      </IonFab>
+
     </>
   )
 }
