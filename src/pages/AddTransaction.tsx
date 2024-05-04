@@ -30,6 +30,8 @@ function AddTransaction() {
     }
   })
 
+  console.log('amount: ', amount)
+
   const history = useHistory()
   const mutation = useMutation({
     mutationFn: async (transaction: { amount: number, date: string, description: string, category_id: number }) => {
@@ -52,12 +54,14 @@ function AddTransaction() {
   }
 
 
-  const handleCategoryChange = (newCategoryName: string) => {
+  const handleCategoryChange = (newCategoryName) => {
     console.log('newCategoryName:', newCategoryName)
     const categoryId = availableCategories.filter(category => category.title === newCategoryName)[0]?.ID
     console.log('categoryId:', categoryId)
-    setCategory(categoryId)
+    setCategory(newCategoryName)
   }
+
+  console.log('category:', category)
 
   return (
     <IonCard>
@@ -71,7 +75,7 @@ function AddTransaction() {
               <IonSelectOption value={category.ID}>{category.title}</IonSelectOption>
             ))}
           </IonSelect>
-          <IonInput type="number" placeholder="Amount" value={amount} onIonChange={e => setAmount(parseFloat(e.detail.value))} />
+          <IonInput type="number" placeholder="Amount" value={amount} onIonInput={e => setAmount(parseFloat(e.detail.value))} />
           <IonInput type="text" placeholder="Description" value={description} onIonChange={e => setDescription(e.detail.value)} />
           <IonInput type="date" placeholder="Date" value={currentDate} disabled />
           <IonButton onClick={handleSaveTransaction}>Add</IonButton>

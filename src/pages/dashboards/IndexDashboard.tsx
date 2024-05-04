@@ -11,6 +11,10 @@ function IndexDashboard() {
     history.push('/add-transaction')
   }
 
+  const navigateToOnboardingCategories = () => {
+    history.push('/onboarding-categories')
+  }
+
   return (
     <div>
       <WeeklyDashboard />
@@ -24,6 +28,10 @@ function IndexDashboard() {
         {
           text: 'Add Transaction',
           handler: navigateToAddTransaction
+        },
+        {
+          text: 'Manage Budget',
+          handler: navigateToOnboardingCategories
         },
         {
           text: 'Cancel',

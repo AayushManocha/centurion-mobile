@@ -29,7 +29,7 @@ export default function AuthenticatedRoute({ children }: AuthenticatedRouteProps
     return (
       <div>
         {children}
-        <IonButton onClick={healthcheckEndpoint}>Healthcheck</IonButton>
+        {/* <IonButton onClick={healthcheckEndpoint}>Healthcheck</IonButton> */}
       </div>
     )
   }
