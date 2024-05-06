@@ -4,6 +4,9 @@ import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 import MonthlyDashboard from "../../components/dashboards/MonthlyDashboard";
 import WeeklyDashboard from "../../components/dashboards/WeeklyDashboard";
 import { useHistory } from "react-router";
+import TimeTravel from "../../components/TimeTravel";
+import { useState } from "react";
+import { getMondayOfThisWeek } from "../../utils/date-utils";
 
 function IndexDashboard() {
   const history = useHistory()
@@ -15,6 +18,8 @@ function IndexDashboard() {
     history.push('/onboarding-categories')
   }
 
+  const [currentDate, setCurrentDate] = useState(getMondayOfThisWeek())
+
 
   return (
     <>
@@ -23,8 +28,9 @@ function IndexDashboard() {
           <IonTitle>Dashboard</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <WeeklyDashboard />
-      <MonthlyDashboard />
+      <TimeTravel date={currentDate} setDate={setCurrentDate} />
+      <WeeklyDashboard currentDate={currentDate} />
+      <MonthlyDashboard currentDate={currentDate} />
       <IonFab id="open-action-sheet" style={{ position: 'absolute', bottom: '24px', right: '24px' }} slot="fixed" horizontal="end" vertical="bottom">
         <IonFabButton onClick={() => { }}>
           <IonIcon icon={add}>Add Transaction</IonIcon>

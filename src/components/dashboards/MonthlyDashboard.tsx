@@ -18,6 +18,7 @@ interface CategoryExpense {
 
 interface MonthlyDashboardProps {
   authServiceHook?: any
+  currentDate: Date
 }
 
 export default function MonthlyDashboard(props: MonthlyDashboardProps) {
@@ -25,12 +26,14 @@ export default function MonthlyDashboard(props: MonthlyDashboardProps) {
   const [categoryExpenses, setCategoryExpenses] = React.useState<CategoryExpense[]>([])
 
   const { getToken } = props.authServiceHook ? props.authServiceHook() : useAuth()
+  const { currentDate } = props
+
   const { isLoading, data } = useQuery({
-    queryKey: 'get-monthly-dashboard',
+    queryKey: ['get-monthly-dashboard', currentDate],
     queryFn: async () => {
       const authToken = await getToken()
 
-      const currentMonth = new Date()
+      const currentMonth = currentDate
       const currentMonthWithLeadingZero = currentMonth.getMonth() + 1 < 10 ? `0${currentMonth.getMonth() + 1}` : currentMonth.getMonth() + 1
       const dateSlug = `${currentMonth.getFullYear()}-${currentMonthWithLeadingZero}-01`
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/monthly/${dateSlug}`, { headers: { Authorization: `Bearer ${authToken}` } })

@@ -16,16 +16,28 @@ interface CategoryExpense {
   totalBudget: number
 }
 
-export default function WeeklyDashboard() {
+interface WeeklyDashboardProps {
+  currentDate: Date
+}
+
+
+export default function WeeklyDashboard(props: WeeklyDashboardProps) {
   const { getToken } = useAuth()
+  const { currentDate } = props
 
   const { isLoading, data } = useQuery({
-    queryKey: 'get-weekly-dashboard',
+    queryKey: ['get-weekly-dashboard', currentDate],
     queryFn: async () => {
       const authToken = await getToken()
-      const mondayOfThisWeek = getMondayOfThisWeek()
-      const dateSlug = mondayOfThisWeek.toISOString().split('T')[0]
+      const mondayOfThisWeek = currentDate
+      console.log('mondayOfThisWeek:', mondayOfThisWeek)
 
+      const year = mondayOfThisWeek.getFullYear()
+      const month = mondayOfThisWeek.getMonth() <= 9 ? `0${mondayOfThisWeek.getMonth() + 1}` : mondayOfThisWeek.getMonth() + 1
+      const day = mondayOfThisWeek.getDate() <= 9 ? `0${mondayOfThisWeek.getDate()}` : mondayOfThisWeek.getDate()
+
+      const dateSlug = `${year}-${month}-${day}`
+      console.log('dateSlug:', dateSlug)
 
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/weekly/${dateSlug}`, { headers: { Authorization: `Bearer ${authToken}` } })
       return response.data
