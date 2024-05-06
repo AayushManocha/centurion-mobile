@@ -30,14 +30,12 @@ export default function WeeklyDashboard(props: WeeklyDashboardProps) {
     queryFn: async () => {
       const authToken = await getToken()
       const mondayOfThisWeek = currentDate
-      console.log('mondayOfThisWeek:', mondayOfThisWeek)
 
       const year = mondayOfThisWeek.getFullYear()
       const month = mondayOfThisWeek.getMonth() <= 9 ? `0${mondayOfThisWeek.getMonth() + 1}` : mondayOfThisWeek.getMonth() + 1
       const day = mondayOfThisWeek.getDate() <= 9 ? `0${mondayOfThisWeek.getDate()}` : mondayOfThisWeek.getDate()
 
       const dateSlug = `${year}-${month}-${day}`
-      console.log('dateSlug:', dateSlug)
 
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/weekly/${dateSlug}`, { headers: { Authorization: `Bearer ${authToken}` } })
       return response.data
@@ -45,14 +43,6 @@ export default function WeeklyDashboard(props: WeeklyDashboardProps) {
     },
     cacheTime: 1,
   })
-
-
-  const history = useHistory()
-
-
-  // Convert current date into format 6 May 2021
-
-
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { IonFab, IonFabButton, IonIcon, IonFabList, IonActionSheet, NavContext, IonPage, IonHeader, IonToolbar, IonTitle, IonInfiniteScroll, IonInfiniteScrollContent, IonContent } from "@ionic/react";
+import { IonFab, IonFabButton, IonIcon, IonFabList, IonActionSheet, NavContext, IonPage, IonHeader, IonToolbar, IonTitle, IonInfiniteScroll, IonInfiniteScrollContent, IonContent, IonRefresher, IonRefresherContent } from "@ionic/react";
 import { add } from "ionicons/icons";
 import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 import MonthlyDashboard from "../../components/dashboards/MonthlyDashboard";
@@ -20,6 +20,11 @@ function IndexDashboard() {
 
   const [currentDate, setCurrentDate] = useState(getMondayOfThisWeek())
 
+  const handleRefresh = (event: CustomEvent) => {
+    setTimeout(() => {
+    }, 2000);
+  }
+
 
   return (
     <>
@@ -28,6 +33,9 @@ function IndexDashboard() {
           <IonTitle>Dashboard</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+        <IonRefresherContent></IonRefresherContent>
+      </IonRefresher>
       <IonContent fullscreen>
         <TimeTravel date={currentDate} setDate={setCurrentDate} />
         <WeeklyDashboard currentDate={currentDate} />

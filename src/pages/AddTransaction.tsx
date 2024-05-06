@@ -1,7 +1,7 @@
 import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonHeader, IonIcon, IonInput, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
 import AuthenticatedRoute from "../components/AuthenticatedRoute";
 import React from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
 import { useHistory } from "react-router";
@@ -13,7 +13,7 @@ interface SpendingCategory {
 }
 
 function AddTransaction() {
-
+  const history = useHistory()
   const currentDate = new Date().toISOString().split('T')[0]
 
   const [amount, setAmount] = React.useState<number | undefined>()
@@ -33,13 +33,17 @@ function AddTransaction() {
 
   console.log('amount: ', amount)
 
-  const history = useHistory()
+  const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: async (transaction: { amount: number, date: string, description: string, category_id: number }) => {
       const authToken = await getToken()
       await axios.post(`${import.meta.env.VITE_API_URL}/expense`, transaction, { headers: { Authorization: `Bearer ${authToken}` } })
     },
-    onSuccess: () => history.push('/dashboard')
+    onSuccess: () => {
+      queryClient.invalidateQueries('get-weekly-dashboard')
+      queryClient.invalidateQueries('get-monthly-dashboard')
+      history.push('/dashboard')
+    }
   })
 
   const handleSaveTransaction = () => {
