@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/clerk-react";
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCheckbox, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToast, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCheckbox, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonSpinner, IonTitle, IonToast, IonToolbar } from "@ionic/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
@@ -145,6 +145,7 @@ export default function OnboardingTransactionCategories(props: OnboardingTransac
                 <IonCheckbox labelPlacement="end" value={currentIsTrackedWeekly} onIonChange={e => setCurrentIsTrackedWeekly(e.detail.checked)}>Track Weekly?</IonCheckbox>
                 <IonButton onClick={() => addCategory(currentCategory || '')}>Add</IonButton>
               </div>
+              {isLoading && <IonSpinner />}
               <div data-testid="current-categories" style={{ margin: '12px' }}>
                 {categories.map(category => {
                   return category.isBeingEdited ?
