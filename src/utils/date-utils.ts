@@ -1,6 +1,8 @@
 export function getMondayOfThisWeek() {
   const now = new Date();
-  const day = now.getDay();
-  const diff = now.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is Sunday
-  return new Date(now.setDate(diff));
+  while (now.getDay() !== 1) { // 0 = Sunday, 1 = Monday, ...
+    now.setDate(now.getDate() - 1);
+  }
+  now.setDate(now.getDate() - 1);
+  return now;
 }
