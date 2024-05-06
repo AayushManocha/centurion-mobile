@@ -1,11 +1,11 @@
 import { useAuth } from "@clerk/clerk-react";
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCheckbox, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonToast } from "@ionic/react";
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCheckbox, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToast, IonToolbar } from "@ionic/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 import { useHistory } from "react-router";
-import { pencilOutline, trashOutline } from "ionicons/icons";
+import { chevronBackOutline, pencilOutline, trashOutline } from "ionicons/icons";
 
 interface Categories {
   id?: number
@@ -119,8 +119,19 @@ export default function OnboardingTransactionCategories(props: OnboardingTransac
   }
 
   return (
-    <AuthenticatedRoute>
-      <IonPage>
+    <IonPage>
+      <AuthenticatedRoute>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonButton onClick={() => history.go(-1)}>
+                <IonIcon icon={chevronBackOutline} />
+                Back
+              </IonButton>
+            </IonButtons>
+            <IonTitle>Add Transaction</IonTitle>
+          </IonToolbar>
+        </IonHeader>
         <IonCard>
           <IonCardHeader>
             <h1>Transaction Categories</h1>
@@ -146,8 +157,8 @@ export default function OnboardingTransactionCategories(props: OnboardingTransac
           </IonCardContent>
         </IonCard >
         <IonToast isOpen={toastIsOpen} onDidDismiss={closeToast} duration={3000} message={toastContent} />
-      </IonPage>
-    </AuthenticatedRoute>
+      </AuthenticatedRoute>
+    </IonPage>
   )
 }
 

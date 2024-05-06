@@ -1,10 +1,11 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonInput, IonPage, IonSelect, IonSelectOption } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonHeader, IonIcon, IonInput, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
 import AuthenticatedRoute from "../components/AuthenticatedRoute";
 import React from "react";
 import { useMutation, useQuery } from "react-query";
 import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { arrowBack, chevronBackOutline } from "ionicons/icons";
 
 interface SpendingCategory {
   ID: number
@@ -64,34 +65,47 @@ function AddTransaction() {
   console.log('category:', category)
 
   return (
-    <IonCard>
-      <IonCardHeader>
-        <h1>Add Transaction</h1>
-      </IonCardHeader>
-      <IonCardContent>
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-          <IonSelect placeholder="Category" onIonChange={(e) => handleCategoryChange(e.detail.value)}>
-            {availableCategories.map(category => (
-              <IonSelectOption value={category.ID}>{category.title}</IonSelectOption>
-            ))}
-          </IonSelect>
-          <IonInput type="number" placeholder="Amount" value={amount} onIonInput={e => setAmount(parseFloat(e.detail.value))} />
-          <IonInput type="text" placeholder="Description" value={description} onIonChange={e => setDescription(e.detail.value)} />
-          <IonInput type="date" placeholder="Date" value={currentDate} disabled />
-          <IonButton onClick={handleSaveTransaction}>Add</IonButton>
-        </div>
-      </IonCardContent>
-    </IonCard>
+    <>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton onClick={() => history.go(-1)}>
+              <IonIcon icon={chevronBackOutline} />
+              Back
+            </IonButton>
+          </IonButtons>
+          <IonTitle>Add Transaction</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonCard>
+        <IonCardHeader>
+          <h1>Add Transaction</h1>
+        </IonCardHeader>
+        <IonCardContent>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <IonSelect placeholder="Category" onIonChange={(e) => handleCategoryChange(e.detail.value)}>
+              {availableCategories.map(category => (
+                <IonSelectOption value={category.ID}>{category.title}</IonSelectOption>
+              ))}
+            </IonSelect>
+            <IonInput type="number" placeholder="Amount" value={amount} onIonInput={e => setAmount(parseFloat(e.detail.value))} />
+            <IonInput type="text" placeholder="Description" value={description} onIonChange={e => setDescription(e.detail.value)} />
+            <IonInput type="date" placeholder="Date" value={currentDate} disabled />
+            <IonButton onClick={handleSaveTransaction}>Add</IonButton>
+          </div>
+        </IonCardContent>
+      </IonCard>
+    </>
   )
 }
 
 export default function AuthenticatedAddTransaction() {
   return (
-    <AuthenticatedRoute>
-      <IonPage>
+    <IonPage>
+      <AuthenticatedRoute>
         <AddTransaction />
-      </IonPage>
-    </AuthenticatedRoute>
+      </AuthenticatedRoute>
+    </IonPage>
   )
 }
 

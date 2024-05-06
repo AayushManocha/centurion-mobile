@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/clerk-react";
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonInput } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonInput, IonPage } from "@ionic/react";
 import axios from "axios";
 import React from "react";
 import { useMutation } from "react-query";
@@ -35,24 +35,26 @@ export default function OnboardingIncome(props: OnboardingIncomeProps) {
   }
 
   return (
-    <AuthenticatedRoute>
-      <IonCard>
-        <IonCardHeader>
-          <IonCardTitle>Income</IonCardTitle>
-          <IonCardSubtitle>How much do you make?</IonCardSubtitle>
-        </IonCardHeader>
+    <IonPage>
+      <AuthenticatedRoute>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Income</IonCardTitle>
+            <IonCardSubtitle>How much do you make?</IonCardSubtitle>
+          </IonCardHeader>
 
-        <IonCardContent>
-          <p>Let's start by understanding your income.</p>
-          <p>How much do you make in a year?</p>
+          <IonCardContent>
+            <p>Let's start by understanding your income.</p>
+            <p>How much do you make in a year?</p>
 
-          <p>Don't worry, we won't share this information with anyone.</p>
+            <p>Don't worry, we won't share this information with anyone.</p>
 
-          <p>Enter your annual income:</p>
-          <IonInput type="number" placeholder="Annual income" value={income} onIonChange={(e) => setIncome(parseInt(e.detail.value || ''))} />
-          <IonButton onClick={handleSave}>Next</IonButton>
-        </IonCardContent>
-      </IonCard>
-    </AuthenticatedRoute>
+            <p>Enter your annual income:</p>
+            <IonInput type="number" placeholder="Annual income" value={income} onIonChange={(e) => setIncome(parseInt(e.detail.value || ''))} />
+            <IonButton onClick={handleSave}>Next</IonButton>
+          </IonCardContent>
+        </IonCard>
+      </AuthenticatedRoute>
+    </IonPage>
   )
 }

@@ -43,11 +43,11 @@ const Home: React.FC = () => {
 
 const AuthenticatedHome: React.FC = () => {
   return (
-    <AuthenticatedRoute>
-      <IonPage>
+    <IonPage>
+      <AuthenticatedRoute>
         <Home />
-      </IonPage>
-    </AuthenticatedRoute>
+      </AuthenticatedRoute>
+    </IonPage>
   )
 }
 

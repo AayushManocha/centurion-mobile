@@ -1,8 +1,9 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonList, IonPage } from "@ionic/react";
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonList, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 import { RouteComponentProps } from "react-router";
 import { useQuery } from "react-query";
 import { useAuth } from "@clerk/clerk-react";
+import { chevronBackOutline } from "ionicons/icons";
 
 interface CategoryDetailProps extends RouteComponentProps<{ id: string }> { }
 
@@ -30,15 +31,22 @@ export default function CategoryDetail(props: CategoryDetailProps) {
     return `${month}-${day}`;
   }
 
-  console.log('data', data)
-
   if (isLoading) {
     return <p>Loading...</p>
   }
 
   return (
-    <AuthenticatedRoute>
-      <IonPage>
+    <IonPage>
+      <AuthenticatedRoute>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton onClick={() => history.go(-1)}>
+              <IonIcon icon={chevronBackOutline} />
+              Back
+            </IonButton>
+          </IonButtons>
+          <IonTitle>Add Transaction</IonTitle>
+        </IonToolbar>
         <IonCard>
           <IonCardHeader>
             <IonCardTitle>{data.category.title}</IonCardTitle>
@@ -55,7 +63,7 @@ export default function CategoryDetail(props: CategoryDetailProps) {
             </IonList>
           </IonCardContent>
         </IonCard>
-      </IonPage>
-    </AuthenticatedRoute>
+      </AuthenticatedRoute>
+    </IonPage>
   );
 }

@@ -1,4 +1,4 @@
-import { IonFab, IonFabButton, IonIcon, IonFabList, IonActionSheet, NavContext, IonPage } from "@ionic/react";
+import { IonFab, IonFabButton, IonIcon, IonFabList, IonActionSheet, NavContext, IonPage, IonHeader, IonToolbar, IonTitle } from "@ionic/react";
 import { add } from "ionicons/icons";
 import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 import MonthlyDashboard from "../../components/dashboards/MonthlyDashboard";
@@ -17,7 +17,12 @@ function IndexDashboard() {
 
 
   return (
-    <div>
+    <>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Dashboard</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <WeeklyDashboard />
       <MonthlyDashboard />
       <IonFab id="open-action-sheet" style={{ position: 'absolute', bottom: '24px', right: '24px' }} slot="fixed" horizontal="end" vertical="bottom">
@@ -40,16 +45,16 @@ function IndexDashboard() {
         }
       ]}>
       </IonActionSheet>
-    </div>
+    </>
   );
 }
 
 export default function AuthenticatedIndexDashboard() {
   return (
-    <AuthenticatedRoute>
-      <IonPage>
+    <IonPage>
+      <AuthenticatedRoute>
         <IndexDashboard />
-      </IonPage>
-    </AuthenticatedRoute>
+      </AuthenticatedRoute>
+    </IonPage>
   );
 }

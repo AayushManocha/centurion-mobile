@@ -45,8 +45,8 @@ const LoginPage: React.FC = () => {
 
   if (userIsCreatingNewAccount) {
     return (
-      <UnauthenticatedRoute>
-        <IonPage>
+      <IonPage>
+        <UnauthenticatedRoute>
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
             <IonCard>
               <IonCardHeader>
@@ -76,29 +76,31 @@ const LoginPage: React.FC = () => {
               </IonCardContent>
             </IonCard>
           </div>
-        </IonPage>
-      </UnauthenticatedRoute>
+        </UnauthenticatedRoute>
+      </IonPage>
     );
   }
 
   return (
-    <UnauthenticatedRoute>
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
-        <IonCard>
-          <IonCardHeader>
-            <IonCardTitle>Sign In</IonCardTitle>
-            <IonCardSubtitle>Sign in to continue</IonCardSubtitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <div style={{ margin: '24px 12px' }}>
-              <IonInput placeholder="Email" type="email" onIonInput={(e) => setEmail(e.detail.value!)} />
-              <IonInput placeholder="Password" type="password" onIonInput={(e) => setPassword(e.detail.value!)} />
-              <IonButton style={{ width: '100%' }} onClick={() => handleSignin({ email, password })}>Sign In</IonButton>
-            </div>
-          </IonCardContent>
-        </IonCard>
-      </div>
-    </UnauthenticatedRoute>
+    <IonPage>
+      <UnauthenticatedRoute>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
+          <IonCard>
+            <IonCardHeader>
+              <IonCardTitle>Sign In</IonCardTitle>
+              <IonCardSubtitle>Sign in to continue</IonCardSubtitle>
+            </IonCardHeader>
+            <IonCardContent>
+              <div style={{ margin: '24px 12px' }}>
+                <IonInput placeholder="Email" type="email" onIonInput={(e) => setEmail(e.detail.value!)} />
+                <IonInput placeholder="Password" type="password" onIonInput={(e) => setPassword(e.detail.value!)} />
+                <IonButton style={{ width: '100%' }} onClick={() => handleSignin({ email, password })}>Sign In</IonButton>
+              </div>
+            </IonCardContent>
+          </IonCard>
+        </div>
+      </UnauthenticatedRoute>
+    </IonPage>
   );
 
 }

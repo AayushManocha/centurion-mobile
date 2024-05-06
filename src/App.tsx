@@ -62,12 +62,8 @@ const App: React.FC = () => {
                 <OnboardingTransactionCategories />
               </Route>
               <Route exact path="/dashboard">
-                {/* <IonNav root={() => <AuthenticatedIndexDashboard />} /> */}
                 <AuthenticatedIndexDashboard />
               </Route>
-              {/* <Route exact path="/weekly-dashboard">
-                <WeeklyDashboard />
-              </Route> */}
               <Route exact path="/add-transaction">
                 <AddTransaction />
               </Route>
