@@ -1,4 +1,4 @@
-import { IonFab, IonFabButton, IonIcon, IonFabList, IonActionSheet, NavContext, IonPage, IonHeader, IonToolbar, IonTitle } from "@ionic/react";
+import { IonFab, IonFabButton, IonIcon, IonFabList, IonActionSheet, NavContext, IonPage, IonHeader, IonToolbar, IonTitle, IonInfiniteScroll, IonInfiniteScrollContent, IonContent } from "@ionic/react";
 import { add } from "ionicons/icons";
 import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 import MonthlyDashboard from "../../components/dashboards/MonthlyDashboard";
@@ -28,9 +28,17 @@ function IndexDashboard() {
           <IonTitle>Dashboard</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <TimeTravel date={currentDate} setDate={setCurrentDate} />
-      <WeeklyDashboard currentDate={currentDate} />
-      <MonthlyDashboard currentDate={currentDate} />
+      <IonContent fullscreen>
+        <TimeTravel date={currentDate} setDate={setCurrentDate} />
+        <WeeklyDashboard currentDate={currentDate} />
+        <MonthlyDashboard currentDate={currentDate} />
+      </IonContent>
+      {/* <IonInfiniteScroll>
+        <IonInfiniteScrollContent>
+        <WeeklyDashboard currentDate={currentDate} />
+        <MonthlyDashboard currentDate={currentDate} />
+        </IonInfiniteScrollContent>
+      </IonInfiniteScroll> */}
       <IonFab id="open-action-sheet" style={{ position: 'absolute', bottom: '24px', right: '24px' }} slot="fixed" horizontal="end" vertical="bottom">
         <IonFabButton onClick={() => { }}>
           <IonIcon icon={add}>Add Transaction</IonIcon>

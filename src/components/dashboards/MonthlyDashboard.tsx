@@ -48,11 +48,14 @@ export default function MonthlyDashboard(props: MonthlyDashboardProps) {
     history.push('/add-transaction')
   }
 
+  const currentMonth = currentDate.toDateString().split(" ")[1]
+  const currentYear = currentDate.getFullYear()
+
   return (
     <>
       <IonCard>
         <IonCardHeader>
-          <IonCardTitle>Monthly Dashboard</IonCardTitle>
+          <IonCardTitle>{currentMonth} {currentYear}</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           {isLoading ? <IonSpinner /> : null}
@@ -70,11 +73,6 @@ export default function MonthlyDashboard(props: MonthlyDashboardProps) {
           )}
         </IonCardContent>
       </IonCard >
-      <IonFab style={{ position: 'absolute', bottom: '24px', right: '24px' }}>
-        <IonFabButton onClick={navigateToAddTransaction}>
-          <IonIcon icon={add}></IonIcon>
-        </IonFabButton>
-      </IonFab>
     </>
   )
 }

@@ -50,11 +50,15 @@ export default function WeeklyDashboard(props: WeeklyDashboardProps) {
   const history = useHistory()
 
 
+  // Convert current date into format 6 May 2021
+
+
+
   return (
     <>
       <IonCard>
         <IonCardHeader>
-          <IonCardTitle>Weekly Dashboard</IonCardTitle>
+          <IonCardTitle>This Week</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           {isLoading ? <IonSpinner /> : (
