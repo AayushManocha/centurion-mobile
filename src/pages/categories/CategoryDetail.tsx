@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonList } from "@ionic/react";
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonList, IonPage } from "@ionic/react";
 import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 import { RouteComponentProps } from "react-router";
 import { useQuery } from "react-query";
@@ -17,9 +17,18 @@ export default function CategoryDetail(props: CategoryDetailProps) {
       const authToken = await getToken()
       const response = await fetch(`http://localhost:8080/categories/${id}`, { headers: { Authorization: `Bearer ${authToken}` } })
       return response.json()
-    }
+    },
+    cacheTime: 1,
 
   })
+
+  function formatDate(date) {
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let d = new Date(date);
+    let month = monthNames[d.getMonth()];
+    let day = d.getDate();
+    return `${month}-${day}`;
+  }
 
   console.log('data', data)
 
@@ -29,22 +38,24 @@ export default function CategoryDetail(props: CategoryDetailProps) {
 
   return (
     <AuthenticatedRoute>
-      <IonCard>
-        <IonCardHeader>
-          <IonCardTitle>{data.category.title}</IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent>
-          <IonList>
-            {data.expenses.map((expense: any) => (
-              <div key={expense.id} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <p>{expense.date}</p>
-                <p>{expense.description}</p>
-                <p>${expense.amount}</p>
-              </div>
-            ))}
-          </IonList>
-        </IonCardContent>
-      </IonCard>
+      <IonPage>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>{data.category.title}</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonList>
+              {data.expenses.map((expense: any) => (
+                <div key={expense.id} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <p>{formatDate(expense.date)}</p>
+                  <p>${expense.amount}</p>
+                  <p>{expense.description}</p>
+                </div>
+              ))}
+            </IonList>
+          </IonCardContent>
+        </IonCard>
+      </IonPage>
     </AuthenticatedRoute>
   );
 }

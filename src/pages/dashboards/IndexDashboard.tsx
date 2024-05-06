@@ -1,4 +1,4 @@
-import { IonFab, IonFabButton, IonIcon, IonFabList, IonActionSheet } from "@ionic/react";
+import { IonFab, IonFabButton, IonIcon, IonFabList, IonActionSheet, NavContext, IonPage } from "@ionic/react";
 import { add } from "ionicons/icons";
 import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 import MonthlyDashboard from "../../components/dashboards/MonthlyDashboard";
@@ -14,6 +14,7 @@ function IndexDashboard() {
   const navigateToOnboardingCategories = () => {
     history.push('/onboarding-categories')
   }
+
 
   return (
     <div>
@@ -46,7 +47,9 @@ function IndexDashboard() {
 export default function AuthenticatedIndexDashboard() {
   return (
     <AuthenticatedRoute>
-      <IndexDashboard />
+      <IonPage>
+        <IndexDashboard />
+      </IonPage>
     </AuthenticatedRoute>
   );
 }

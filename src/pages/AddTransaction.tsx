@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonInput, IonSelect, IonSelectOption } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonInput, IonPage, IonSelect, IonSelectOption } from "@ionic/react";
 import AuthenticatedRoute from "../components/AuthenticatedRoute";
 import React from "react";
 import { useMutation, useQuery } from "react-query";
@@ -88,7 +88,9 @@ function AddTransaction() {
 export default function AuthenticatedAddTransaction() {
   return (
     <AuthenticatedRoute>
-      <AddTransaction />
+      <IonPage>
+        <AddTransaction />
+      </IonPage>
     </AuthenticatedRoute>
   )
 }

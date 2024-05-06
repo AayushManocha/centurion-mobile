@@ -25,7 +25,8 @@ const Home: React.FC = () => {
       console.log('response is', response.data)
       if (!response.data.hasIncome) {
         console.log('redirecting to onboarding income')
-        hisory.push('/onboarding-income')
+        // hisory.push('/onboarding-income')
+        hisory.push('/dashboard')
       } else if (!response.data.hasSpendingCategory) {
         console.log('redirecting to onboarding categories')
         hisory.push('/onboarding-categories')
@@ -43,7 +44,9 @@ const Home: React.FC = () => {
 const AuthenticatedHome: React.FC = () => {
   return (
     <AuthenticatedRoute>
-      <Home />
+      <IonPage>
+        <Home />
+      </IonPage>
     </AuthenticatedRoute>
   )
 }

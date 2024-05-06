@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, isPlatform, setupIonicReact } from '@ionic/react';
+import { IonApp, IonNav, IonRouterOutlet, isPlatform, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -62,11 +62,12 @@ const App: React.FC = () => {
                 <OnboardingTransactionCategories />
               </Route>
               <Route exact path="/dashboard">
+                {/* <IonNav root={() => <AuthenticatedIndexDashboard />} /> */}
                 <AuthenticatedIndexDashboard />
               </Route>
-              <Route exact path="/weekly-dashboard">
+              {/* <Route exact path="/weekly-dashboard">
                 <WeeklyDashboard />
-              </Route>
+              </Route> */}
               <Route exact path="/add-transaction">
                 <AddTransaction />
               </Route>
