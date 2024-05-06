@@ -22,6 +22,11 @@ export default function TimeTravel(props: TimeTravelProps) {
     setDate(getMondayOfThisWeek(newDate))
   }
 
+  console.log('date', date.toISOString())
+  console.log('getMondayOfThisWeek()', getMondayOfThisWeek().toISOString())
+
+  const currentDateIsToday = date.toISOString().split("T")[0] === getMondayOfThisWeek().toISOString().split("T")[0]
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <div style={{ display: "flex", flexDirection: 'row', alignItems: 'center', width: 'fit-content', margin: 'auto' }}>
@@ -33,9 +38,11 @@ export default function TimeTravel(props: TimeTravelProps) {
           <IonIcon icon={chevronForwardOutline} />
         </IonButton>
       </div>
-      <IonButton fill="clear" onClick={() => setDate(getMondayOfThisWeek())} style={{ marginTop: '-24px' }}>
-        This Week
-      </IonButton>
+      {!currentDateIsToday && (
+        <IonButton fill="clear" onClick={() => setDate(getMondayOfThisWeek())} style={{ marginTop: '-24px' }}>
+          This Week
+        </IonButton>
+      )}
     </div>
   )
 }
