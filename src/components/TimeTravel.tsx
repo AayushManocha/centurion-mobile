@@ -22,9 +22,6 @@ export default function TimeTravel(props: TimeTravelProps) {
     setDate(getMondayOfThisWeek(newDate))
   }
 
-  console.log('date', date.toISOString())
-  console.log('getMondayOfThisWeek()', getMondayOfThisWeek().toISOString())
-
   const currentDateIsToday = date.toISOString().split("T")[0] === getMondayOfThisWeek().toISOString().split("T")[0]
 
   return (

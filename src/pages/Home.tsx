@@ -4,15 +4,15 @@ import './Home.css';
 import isSignedIn from '../hooks/getAuthenticatedUser';
 import { SignOutButton, useAuth } from '@clerk/clerk-react';
 import { useQuery } from 'react-query';
-import axios from 'axios';
 import AuthenticatedRoute from '../components/AuthenticatedRoute';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
+import { AxiosContext } from '../providers/AxiosProvider';
 
 
 const Home: React.FC = () => {
-  // const authState = isSignedIn()
   const { getToken } = useAuth()
+  const axios = useContext(AxiosContext)
   const hisory = useHistory()
 
   const query = useQuery({
@@ -20,18 +20,13 @@ const Home: React.FC = () => {
     retry: false,
     queryFn: async () => {
       const token = await getToken()
-      console.log('token is', token)
       const response = await axios.get(`/onboarding/status`, { headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' } })
-      console.log('response is', response.data)
       if (!response.data.hasIncome) {
-        console.log('redirecting to onboarding income')
         // hisory.push('/onboarding-income')
         hisory.push('/dashboard')
       } else if (!response.data.hasSpendingCategory) {
-        console.log('redirecting to onboarding categories')
         hisory.push('/onboarding-categories')
       } else {
-        console.log('redirecting to dashboard')
         hisory.push('/dashboard')
       }
     }

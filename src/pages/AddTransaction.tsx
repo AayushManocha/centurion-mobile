@@ -1,11 +1,11 @@
-import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonHeader, IonIcon, IonInput, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
-import AuthenticatedRoute from "../components/AuthenticatedRoute";
+import { useAuth } from "@clerk/clerk-react";
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonHeader, IonIcon, IonInput, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
+import axios from "axios";
+import { chevronBackOutline } from "ionicons/icons";
 import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useAuth } from "@clerk/clerk-react";
-import axios from "axios";
 import { useHistory } from "react-router";
-import { arrowBack, chevronBackOutline } from "ionicons/icons";
+import AuthenticatedRoute from "../components/AuthenticatedRoute";
 
 interface SpendingCategory {
   ID: number

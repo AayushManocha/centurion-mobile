@@ -1,4 +1,3 @@
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton } from "@ionic/react"
 import { useHistory } from "react-router"
 
 interface CategoryCardProps {

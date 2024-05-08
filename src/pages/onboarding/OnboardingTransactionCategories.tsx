@@ -1,11 +1,11 @@
 import { useAuth } from "@clerk/clerk-react";
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCheckbox, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonSpinner, IonTitle, IonToast, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCheckbox, IonHeader, IonIcon, IonInput, IonPage, IonSpinner, IonTitle, IonToast, IonToolbar } from "@ionic/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useMutation, useQuery } from "react-query";
-import AuthenticatedRoute from "../../components/AuthenticatedRoute";
-import { useHistory } from "react-router";
 import { chevronBackOutline, pencilOutline, trashOutline } from "ionicons/icons";
+import { useState } from "react";
+import { useMutation, useQuery } from "react-query";
+import { useHistory } from "react-router";
+import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 
 interface Categories {
   id?: number

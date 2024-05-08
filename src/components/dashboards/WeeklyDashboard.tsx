@@ -1,12 +1,8 @@
 import { useAuth } from "@clerk/clerk-react";
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonFab, IonFabButton, IonFabList, IonIcon, IonInput, IonSpinner } from "@ionic/react";
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonSpinner } from "@ionic/react";
 import axios from "axios";
-import React from "react";
 import { useQuery } from "react-query";
-import { useHistory } from "react-router";
-import { add } from 'ionicons/icons';
 import CategoryCard from "./CategoryCard";
-import { getMondayOfThisWeek } from "../../utils/date-utils";
 
 interface CategoryExpense {
   categoryTitle: string
@@ -56,6 +52,7 @@ export default function WeeklyDashboard(props: WeeklyDashboardProps) {
               <div>
                 {data?.categoryExpenses?.map((category: CategoryExpense) => (
                   <CategoryCard
+                    key={category.categoryId}
                     categoryId={category.categoryId}
                     title={category.categoryTitle}
                     totalExpense={category.totalExpense}
