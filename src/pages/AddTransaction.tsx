@@ -42,6 +42,7 @@ function AddTransaction() {
     onSuccess: () => {
       queryClient.invalidateQueries('get-weekly-dashboard')
       queryClient.invalidateQueries('get-monthly-dashboard')
+      queryClient.invalidateQueries('get-monthly-metrics')
       history.push('/dashboard')
     }
   })

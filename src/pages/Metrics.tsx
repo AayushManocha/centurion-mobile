@@ -1,4 +1,4 @@
-import { IonCard, IonPage } from "@ionic/react"
+import { IonCard, IonPage, IonSpinner } from "@ionic/react"
 import AuthenticatedRoute from "../components/AuthenticatedRoute"
 import { useAuth } from "@clerk/clerk-react"
 import axios from "axios"
@@ -23,30 +23,42 @@ export default function Metrics() {
   return (
     <IonPage>
       <AuthenticatedRoute>
-        <MonthlyMetricDisplay />
+        {isLoading && <IonSpinner />}
+        {data && (
+          data.metrics.map((metric: any) => {
+            return <MonthlyMetricDisplay metric={metric.Metrics} date={new Date(metric.Date)} />
+          })
+        )}
       </AuthenticatedRoute>
     </IonPage>
   )
 
 }
 
-function MonthlyMetricDisplay() {
+interface MonthlyMetricDisplayProps {
+  metric: any
+  date: Date
+}
+
+
+function MonthlyMetricDisplay(props: MonthlyMetricDisplayProps) {
+  const { totalSpend, totalBudget, remaining } = props.metric
   return (
     <IonCard>
-      <h2 style={{ alignSelf: 'flex-start', color: 'white', fontWeight: 'bold', fontSize: '1.5em' }} onClick={() => { }}>
-        {`May 2024`}
+      <h2 style={{ alignSelf: 'flex-start', color: 'white', fontWeight: 'bold', fontSize: '1.5em', margin: '12px', padding: '24px' }} onClick={() => { }} >
+        {`${props.date.toDateString().split(" ")[1]} ${props.date.getFullYear()}`}
         {/* <div>
           <span style={{ fontSize: '0.4em', fontStyle: 'italic', marginRight: '24px' }}>${100}/month</span>
           <span style={{ fontSize: '0.4em', fontStyle: 'italic' }}>${100 / 4}/week</span>
         </div> */}
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', margin: '12px' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between', margin: '12px', padding: '24px' }}>
         <div id="total-expense" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div style={{ color: 'white', fontWeight: '500' }}>
             Total Spent
           </div>
           <div style={{ color: 'white', fontWeight: 'bold', fontSize: '1.5em' }}>
-            ${500}
+            ${totalSpend}
           </div>
         </div>
         <div id="remaining-budget" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -54,7 +66,7 @@ function MonthlyMetricDisplay() {
             Remaining
           </div>
           <div style={{ fontWeight: 'bold', fontSize: '1.5em' }}>
-            ${Math.abs(100)}
+            ${remaining}
           </div>
         </div>
       </div>
