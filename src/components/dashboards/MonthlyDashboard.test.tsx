@@ -26,7 +26,7 @@ import { render, waitFor, screen } from "../../utils/test-utils"
 
 test('Content is rendered appropriately', async () => {
   const useAuth = vi.fn(() => ({ getToken: vi.fn(() => 'fake-token') }))
-  render(<MonthlyDashboard authServiceHook={useAuth} />)
+  render(<MonthlyDashboard authServiceHook={useAuth} currentDate={null} />)
 
   // Wait for the text to be rendered
   await waitFor(() => expect(screen.getByText('Monthly Dashboard')).toBeInTheDocument(), { timeout: 5000 })
