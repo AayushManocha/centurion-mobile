@@ -13,13 +13,15 @@ export default function TimeTravel(props: TimeTravelProps) {
   const back = () => {
     const newDate = new Date(date)
     newDate.setDate(newDate.getDate() - 7)
-    setDate(getMondayOfThisWeek(newDate))
+    setDate(newDate)
+    // setDate(getMondayOfThisWeek(newDate))
   }
 
   const forward = () => {
     const newDate = new Date(date)
     newDate.setDate(newDate.getDate() + 7)
-    setDate(getMondayOfThisWeek(newDate))
+    setDate(newDate)
+    // setDate(getMondayOfThisWeek(newDate))
   }
 
   const currentDateIsToday = date.toISOString().split("T")[0] === getMondayOfThisWeek().toISOString().split("T")[0]
