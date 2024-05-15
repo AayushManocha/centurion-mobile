@@ -1,5 +1,5 @@
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import { IonReactHashRouter, IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Home from './pages/Home';
 
@@ -47,7 +47,7 @@ const App: React.FC = () => {
       <QueryClientProvider client={queryClient}>
         <AxiosProvider>
           <IonApp>
-            <IonReactRouter>
+            <IonReactHashRouter>
               <IonRouterOutlet>
                 <Route exact path="/home">
                   <Home />
@@ -75,7 +75,7 @@ const App: React.FC = () => {
                 </Route>
                 <Route path="/category/:id" component={CategoryDetail} />
               </IonRouterOutlet>
-            </IonReactRouter>
+            </IonReactHashRouter>
           </IonApp>
         </AxiosProvider>
       </QueryClientProvider>
