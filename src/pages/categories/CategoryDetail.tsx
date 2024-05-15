@@ -1,9 +1,9 @@
 import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonList, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 import { RouteComponentProps } from "react-router";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useAuth } from "@clerk/clerk-react";
-import { chevronBackOutline } from "ionicons/icons";
+import { chevronBackOutline, trashBinOutline } from "ionicons/icons";
 
 interface CategoryDetailProps extends RouteComponentProps<{ id: string }> { }
 
@@ -21,6 +21,22 @@ export default function CategoryDetail(props: CategoryDetailProps) {
     },
     cacheTime: 1,
 
+  })
+
+  console.log('data: ', data)
+
+
+  const queryClient = useQueryClient()
+  const deleteTransaction = useMutation({
+    mutationFn: async (id: number) => {
+      const authToken = await getToken()
+      await fetch(`http://localhost:8080/expense/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${authToken}` } })
+    },
+    onSuccess(data, variables, context) {
+      queryClient.invalidateQueries('get-category')
+      queryClient.invalidateQueries('get-monthly-dashboard')
+      queryClient.invalidateQueries('get-weekly-dashboard')
+    },
   })
 
   function formatDate(date) {
@@ -54,10 +70,13 @@ export default function CategoryDetail(props: CategoryDetailProps) {
           <IonCardContent>
             <IonList>
               {data.expenses.map((expense: any) => (
-                <div key={expense.id} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div key={expense.ID} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <p>{formatDate(expense.date)}</p>
                   <p>${expense.amount}</p>
                   <p>{expense.description}</p>
+                  <IonButton shape="round" fill="clear" onClick={() => deleteTransaction.mutate(expense.ID)}>
+                    <IonIcon icon={trashBinOutline} />
+                  </IonButton>
                 </div>
               ))}
             </IonList>

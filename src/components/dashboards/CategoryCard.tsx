@@ -18,8 +18,8 @@ export default function CategoryCard(props: CategoryCardProps) {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
-      <h2 style={{ alignSelf: 'flex-start', color: 'white', fontWeight: 'bold', fontSize: '1.5em' }} onClick={naviateToDetails}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }} onClick={naviateToDetails}>
+      <h2 style={{ alignSelf: 'flex-start', color: 'white', fontWeight: 'bold', fontSize: '1.5em' }}>
         {title}
         <div>
           <span style={{ fontSize: '0.4em', fontStyle: 'italic', marginRight: '24px' }}>${totalBudget}/month</span>
