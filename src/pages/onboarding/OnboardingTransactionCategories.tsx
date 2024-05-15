@@ -3,7 +3,7 @@ import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCheck
 import axios from "axios";
 import { chevronBackOutline, pencilOutline, trashOutline } from "ionicons/icons";
 import { useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useHistory } from "react-router";
 import AuthenticatedRoute from "../../components/AuthenticatedRoute";
 
@@ -75,7 +75,11 @@ export default function OnboardingTransactionCategories(props: OnboardingTransac
       const filteredCategories = categories.filter(c => c.id === undefined)
       await axios.post(`${import.meta.env.VITE_API_URL}/onboarding/spending-categories`, { categories: filteredCategories }, { headers: { Authorization: `Bearer ${authToken}` } })
     },
-    onSuccess: redirectToWeeklyDashboard,
+    onSuccess: () => {
+      queryClient.invalidateQueries('get-weekly-dashboard')
+      queryClient.invalidateQueries('get-monthly-dashboard')
+      redirectToWeeklyDashboard()
+    },
     onError: () => openToast('Error saving categories')
   })
 
@@ -84,6 +88,7 @@ export default function OnboardingTransactionCategories(props: OnboardingTransac
     mutation.mutate(categories)
   }
 
+  const queryClient = useQueryClient()
   // Populate categories from API
   const { isLoading, data, refetch } = useQuery({
     queryKey: 'get-categories',
