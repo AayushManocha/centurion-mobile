@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/clerk-react";
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCheckbox, IonHeader, IonIcon, IonInput, IonPage, IonSpinner, IonTitle, IonToast, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCheckbox, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonSpinner, IonTitle, IonToast, IonToolbar } from "@ionic/react";
 import axios from "axios";
 import { chevronBackOutline, pencilOutline, trashOutline } from "ionicons/icons";
 import { useState } from "react";
@@ -132,31 +132,33 @@ export default function OnboardingTransactionCategories(props: OnboardingTransac
             <IonTitle>Add Transaction</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonCard>
-          <IonCardHeader>
-            <h1>Transaction Categories</h1>
-            <p>What categories do you spend money on?</p>
-          </IonCardHeader>
-          <IonCardContent>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '1005' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '30%' }}>
-                <IonInput type="text" placeholder="Category" onIonInput={e => setCurrentCategory(e.detail.value || '')} value={currentCategory || ''} />
-                <IonInput type="text" placeholder="Budget" onIonInput={e => setCurrentBudget(e.detail.value || '')} value={currentBudget || ''} />
-                <IonCheckbox labelPlacement="end" value={currentIsTrackedWeekly} onIonChange={e => setCurrentIsTrackedWeekly(e.detail.checked)}>Track Weekly?</IonCheckbox>
-                <IonButton onClick={() => addCategory(currentCategory || '')}>Add</IonButton>
+        <IonContent fullscreen>
+          <IonCard>
+            <IonCardHeader>
+              <h1>Transaction Categories</h1>
+              <p>What categories do you spend money on?</p>
+            </IonCardHeader>
+            <IonCardContent>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '1005' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '30%' }}>
+                  <IonInput type="text" placeholder="Category" onIonInput={e => setCurrentCategory(e.detail.value || '')} value={currentCategory || ''} />
+                  <IonInput type="text" placeholder="Budget" onIonInput={e => setCurrentBudget(e.detail.value || '')} value={currentBudget || ''} />
+                  <IonCheckbox labelPlacement="end" value={currentIsTrackedWeekly} onIonChange={e => setCurrentIsTrackedWeekly(e.detail.checked)}>Track Weekly?</IonCheckbox>
+                  <IonButton onClick={() => addCategory(currentCategory || '')}>Add</IonButton>
+                </div>
+                {isLoading && <IonSpinner />}
+                <div data-testid="current-categories" style={{ margin: '12px' }}>
+                  {categories.map(category => {
+                    return category.isBeingEdited ?
+                      <EditCategoryItem category={category} removeCategory={removeCategory} editCategory={editCategory} refreshCategories={refetch} /> :
+                      <CategoryItem category={category} removeCategory={removeCategory} editCategory={editCategory} refreshCategories={refetch} />
+                  })}
+                </div>
+                <IonButton expand="full" onClick={handleSave}>Save</IonButton>
               </div>
-              {isLoading && <IonSpinner />}
-              <div data-testid="current-categories" style={{ margin: '12px' }}>
-                {categories.map(category => {
-                  return category.isBeingEdited ?
-                    <EditCategoryItem category={category} removeCategory={removeCategory} editCategory={editCategory} refreshCategories={refetch} /> :
-                    <CategoryItem category={category} removeCategory={removeCategory} editCategory={editCategory} refreshCategories={refetch} />
-                })}
-              </div>
-              <IonButton expand="full" onClick={handleSave}>Save</IonButton>
-            </div>
-          </IonCardContent>
-        </IonCard >
+            </IonCardContent>
+          </IonCard >
+        </IonContent>
         <IonToast isOpen={toastIsOpen} onDidDismiss={closeToast} duration={3000} message={toastContent} />
       </AuthenticatedRoute>
     </IonPage>
