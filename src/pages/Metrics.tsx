@@ -1,8 +1,9 @@
-import { IonCard, IonPage, IonSpinner } from "@ionic/react"
+import { IonButton, IonButtons, IonCard, IonContent, IonHeader, IonIcon, IonPage, IonSpinner, IonTitle, IonToolbar } from "@ionic/react"
 import AuthenticatedRoute from "../components/AuthenticatedRoute"
 import { useAuth } from "@clerk/clerk-react"
 import axios from "axios"
 import { useQuery } from "react-query"
+import { chevronBackOutline } from "ionicons/icons"
 
 export default function Metrics() {
   const { getToken } = useAuth()
@@ -23,12 +24,25 @@ export default function Metrics() {
   return (
     <IonPage>
       <AuthenticatedRoute>
-        {isLoading && <IonSpinner />}
-        {data && (
-          data.metrics.map((metric: any) => {
-            return <MonthlyMetricDisplay metric={metric.Metrics} date={new Date(metric.Date)} />
-          })
-        )}
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonButton onClick={() => history.go(-1)}>
+                <IonIcon icon={chevronBackOutline} />
+                Back
+              </IonButton>
+            </IonButtons>
+            <IonTitle>Metrics</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent fullscreen>
+          {isLoading && <IonSpinner />}
+          {data && (
+            data.metrics.map((metric: any) => {
+              return <MonthlyMetricDisplay metric={metric.Metrics} date={new Date(metric.Date)} />
+            })
+          )}
+        </IonContent>
       </AuthenticatedRoute>
     </IonPage>
   )
